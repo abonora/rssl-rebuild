@@ -8,16 +8,40 @@ interface CachedData {
   timestamp: number;
 }
 
-interface TeamResponse {
+export interface TeamResponse {
   id: number;
   title: {
     rendered: string;
   };
   meta_box: {
     owner: string;
-    teamLogo: {
-      full_url: string;
-    }[];
+    teamLogo: Array<{ full_url: string }>;
+    founded?: string;
+    homeArena?: string;
+    teamColors?: string;
+    players_to_teams_from?: number[];
+  };
+}
+
+export interface HomeContent {
+  id: number,
+  title: {
+    rendered: string;
+  };
+  content: {
+    rendered: string;
+  };
+}
+
+export interface PlayerResponse {
+  id: number,
+  title: {
+    rendered: string;
+  };
+  meta_box: {
+    contractLength: string;
+    nhlTeam: string;
+    playerPhoto: Array<{ full_url: string }>;
   };
 }
 
@@ -69,3 +93,29 @@ export const fetchStandingsData = async (): Promise<StandingsResponse[]> => {
     throw error;
   }
 }; 
+
+export const fetchHomeContent = async (): Promise<HomeContent> => {
+  try {
+    const response = await fetch('https://albertobonora.com/feeds/wp-json/wp/v2/pages/830');
+    if (!response.ok) {
+      throw new Error('Failed to fetch home content');
+    }
+    return await response.json();
+  } catch (error) {
+    console.error('Error fetching home content:', error);
+    throw error;
+  }
+};
+
+export const fetchPlayerData = async (playerIds: number[]): Promise<PlayerResponse[]> => {
+  try {
+    const response = await fetch(`https://albertobonora.com/feeds/wp-json/wp/v2/players?include=${playerIds.join(',')}`);
+    if (!response.ok) {
+      throw new Error('Failed to fetch player data');
+    }
+    return await response.json();
+  } catch (error) {
+    console.error('Error fetching player data:', error);
+    throw error;
+  }
+};

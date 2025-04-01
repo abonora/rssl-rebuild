@@ -1,20 +1,6 @@
 import { useState, useEffect } from 'react';
-import { fetchTeams } from '../services/api';
+import { fetchTeams, TeamResponse, fetchPlayerData, PlayerResponse } from '../services/api';
 import { PlayerCard } from '../components/PlayerCard';
-
-interface Team {
-  id: number;
-  title: {
-    rendered: string;
-  };
-  meta_box: {
-    owner: string;
-    teamLogo: Array<{ full_url: string }>;
-    founded?: string;
-    homeArena?: string;
-    teamColors?: string;
-  };
-}
 
 interface TeamDetailsProps {
   teamId: string;
@@ -22,17 +8,19 @@ interface TeamDetailsProps {
 }
 
 export function TeamDetails({ teamId, onBackClick }: TeamDetailsProps) {
-  const [team, setTeam] = useState<Team | null>(null);
+  const [team, setTeam] = useState<TeamResponse | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [players, setPlayers] = useState<PlayerResponse[]>([]);
+  //const [playerIds, setPlayerIds] = useState<number[]>([]);
 
   // Sample player data - replace with actual data from API when available
-  const players = [
-    { name: 'John Smith', tenure: 'forever' as const, photoUrl: 'https://picsum.photos/200' },
-    { name: 'Mike Johnson', tenure: 'year 1' as const, photoUrl: 'https://picsum.photos/201' },
-    { name: 'David Wilson', tenure: 'year 2' as const, photoUrl: 'https://picsum.photos/202' },
-    { name: 'Chris Brown', tenure: 'year 3' as const, photoUrl: 'https://picsum.photos/203' },
-  ];
+  // const players = [
+  //   { name: 'John Smith', tenure: 'forever' as const, photoUrl: 'https://picsum.photos/200' },
+  //   { name: 'Mike Johnson', tenure: 'year 1' as const, photoUrl: 'https://picsum.photos/201' },
+  //   { name: 'David Wilson', tenure: 'year 2' as const, photoUrl: 'https://picsum.photos/202' },
+  //   { name: 'Chris Brown', tenure: 'year 3' as const, photoUrl: 'https://picsum.photos/203' },
+  // ];
 
   useEffect(() => {
     const loadTeam = async () => {
@@ -41,6 +29,11 @@ export function TeamDetails({ teamId, onBackClick }: TeamDetailsProps) {
         const foundTeam = teams.find(t => t.id.toString() === teamId);
         if (foundTeam) {
           setTeam(foundTeam);
+          if (foundTeam.meta_box.players_to_teams_from) {
+            const playerIds = foundTeam.meta_box.players_to_teams_from.map(Number);
+            const playerData = await fetchPlayerData(playerIds);
+            setPlayers(playerData);
+          }
         } else {
           setError('Team not found');
         }
@@ -105,12 +98,13 @@ export function TeamDetails({ teamId, onBackClick }: TeamDetailsProps) {
         </div>
 
         <div className="player-cards">
-          {players.map((player, index) => (
+          {players.map((player) => (
             <PlayerCard
-              key={index}
-              name={player.name}
-              tenure={player.tenure}
-              photoUrl={player.photoUrl}
+              key={player.id}
+              name={player.title.rendered}
+              tenure={player.meta_box.contractLength}
+              photoUrl={player.meta_box.playerPhoto[0].full_url}
+              nhlTeam={player.meta_box.nhlTeam}
             />
           ))}
         </div>

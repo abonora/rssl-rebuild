@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, use } from 'react';
 import { FaHome, FaUsers, FaTrophy, FaPencilAlt, FaTrash } from 'react-icons/fa';
 import { FiSun, FiMoon } from 'react-icons/fi';
 import { ThemeProvider, useTheme } from './context/ThemeContext';
@@ -9,6 +9,7 @@ import { Standings } from './pages/Standings';
 import SplashScreen from './components/SplashScreen';
 import PageTransition from './components/PageTransition';
 import { Footer } from './components/Footer';
+import { fetchHomeContent, type HomeContent } from './services/api';
 import './App.css';
 
 type Page = 'home' | 'teams' | 'standings';
@@ -21,6 +22,27 @@ function Layout() {
   });
   const [currentPage, setCurrentPage] = useState<Page>('home');
   const [isPageVisible, setIsPageVisible] = useState(true);
+  const [homeContent, setHomeContent] = useState<HomeContent | null>(null);
+  const [homeLoading, setHomeLoaading] = useState(true);
+  const [homeError, setHomeError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const loadHomeContent = async () => {
+      try {
+        const content = await fetchHomeContent();
+        setHomeContent(content);
+        setHomeLoaading(false);
+      } catch (error) {
+        console.error(error);
+        setHomeError('Failed to load content');
+        setHomeLoaading(false);
+      }
+    };
+
+    if (currentPage === 'home') {
+      loadHomeContent();
+    }
+  }, [currentPage]);
 
   useEffect(() => {
     setIsPageVisible(false);
@@ -54,6 +76,10 @@ function Layout() {
     }, 300);
   };
 
+  const cleanContent = (content: string) => {
+    return content.replace(/\\n/g, '').replace(/\/n\/n\/n\/n/g, '');
+  };
+
   const renderPage = () => {
     if (showTeamSelection) {
       return (
@@ -69,7 +95,9 @@ function Layout() {
           return (
             <div className="container">
               <div className="home-header">
-                <h1 className="page-title">Welcome to Hockey Stats</h1>
+                <h1 className="page-title">
+                  {homeLoading ? 'Loading...' : homeError ? 'Error' : homeContent?.title.rendered || 'Welcome to Hockey Stats'}
+                </h1>
                 {selectedTeam && (
                   <div className="team-actions">
                     <span className="team-actions-hint">Edit or clear your team selection</span>
@@ -82,7 +110,12 @@ function Layout() {
                   </div>
                 )}
               </div>
-              <p className="page-content">Track your favorite team's performance and stay up to date with the latest standings.</p>
+              {homeContent  && (
+                <div 
+                  className="page-content"
+                  dangerouslySetInnerHTML={{__html: cleanContent(homeContent.content.rendered)}}
+                  />
+              )}
               {!selectedTeam && (
                 <button className="select-team-button" onClick={() => setShowTeamSelection(true)}>
                   Select Team

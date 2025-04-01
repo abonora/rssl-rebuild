@@ -831,6 +831,8 @@ body {
     padding: 1rem;
   }
 
+  .container:has(.home-header) .team-details{ padding-left: 0; padding-right: 0;}
+
   .team-header h1 {
     font-size: 2rem;
   }
@@ -1588,6 +1590,29 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
+  background-size: contain;
+  background-position: center;
+  background-position: top 10px center;
+  background-repeat: no-repeat;
+  background-blend-mode: lighten;
+  background-color: black;
+  background-color: rgba(255, 255, 255, 0.8);
+}
+
+.player-photo.minnesota-wild {
+  background-image: url('./assets/teams/minnesota-wild.svg');
+}
+
+.player-photo.tampa-bay-lightning {
+  background-image: url('./assets/teams/TBL_light.svg');
+}
+
+.player-photo.nashville-predators {
+  background-image: url('./assets/teams/nashville-predators.svg');
+}
+
+.player-photo.edmonton-oilers {
+  background-image: url('./assets/teams/edmonton-oilers.svg');
 }
 
 .player-photo img {

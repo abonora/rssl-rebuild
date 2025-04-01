@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { fetchTeams } from '../services/api';
+import { fetchTeams, TeamResponse } from '../services/api';
 
 interface TeamSelectionProps {
   onSelectTeam: (teamId: string) => void;
@@ -7,12 +7,7 @@ interface TeamSelectionProps {
 }
 
 export const TeamSelection = ({ onSelectTeam, onCancel }: TeamSelectionProps) => {
-  const [teams, setTeams] = useState<Array<{
-    id: number;
-    name: string;
-    owner: string;
-    logoUrl: string;
-  }>>([]);
+  const [teams, setTeams] = useState<TeamResponse[]>([]);
   const [selectedTeamId, setSelectedTeamId] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -21,13 +16,7 @@ export const TeamSelection = ({ onSelectTeam, onCancel }: TeamSelectionProps) =>
     const loadTeams = async () => {
       try {
         const response = await fetchTeams();
-        const formattedTeams = response.map(team => ({
-          id: team.id,
-          name: team.title.rendered,
-          owner: team.meta_box.owner,
-          logoUrl: team.meta_box.teamLogo[0]?.full_url || ''
-        }));
-        setTeams(formattedTeams);
+        setTeams(response);
         setLoading(false);
       } catch (error) {
         console.error(error);
@@ -41,6 +30,10 @@ export const TeamSelection = ({ onSelectTeam, onCancel }: TeamSelectionProps) =>
 
   const handleTeamClick = (teamId: number) => {
     setSelectedTeamId(teamId.toString());
+    const selectedTeam = teams.find(team => team.id === teamId);
+    if (selectedTeam?.meta_box.players_to_teams_from) {
+      localStorage.setItem('selectedTeamPlayerIds', JSON.stringify(selectedTeam.meta_box.players_to_teams_from));
+    }
   };
 
   const handleSelectClick = () => {
@@ -77,10 +70,10 @@ export const TeamSelection = ({ onSelectTeam, onCancel }: TeamSelectionProps) =>
             className={`team-card ${selectedTeamId === team.id.toString() ? 'selected' : ''}`}
             onClick={() => handleTeamClick(team.id)}
           >
-            <img src={team.logoUrl} alt={`${team.name} Logo`} className="team-logo" />
+            <img src={team.meta_box.teamLogo[0]?.full_url} alt={`${team.title.rendered} Logo`} className="team-logo" />
             <div className="team-info">
-              <div className="team-name">{team.name}</div>
-              <div className="gm-name">{team.owner}</div>
+              <div className="team-name">{team.title.rendered}</div>
+              <div className="gm-name">{team.meta_box.owner}</div>
             </div>
           </div>
         ))}
