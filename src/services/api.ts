@@ -23,7 +23,7 @@ interface TeamResponse {
 
 export const fetchTeams = async (): Promise<TeamResponse[]> => {
   try {
-    const response = await fetch('https://run.mocky.io/v3/6879c769-2873-4662-ba15-e2a1a451da48');
+    const response = await fetch('https://albertobonora.com/feeds/wp-json/wp/v2/teams/');
     if (!response.ok) {
       throw new Error('Failed to fetch teams');
     }
@@ -45,7 +45,7 @@ export const fetchStandingsData = async (): Promise<StandingsResponse[]> => {
   }
 
   try {
-    const response = await fetch('https://run.mocky.io/v3/ce81c6fd-e184-4d01-b873-f93fb921275c');
+    const response = await fetch('https://albertobonora.com/feeds/wp-json/wp/v2/seasons/');
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
