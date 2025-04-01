@@ -1,0 +1,52 @@
+{
+  "teams": [
+    {
+      "id": "1",
+      "name": "The Bears",
+      "gm": "GM: Alberto",
+      "type": "bears",
+      "players": [
+        { "id": "1", "name": "Cale Makar", "year": 2, "imageUrl": "https://placehold.co/120x120/22C55E/FFFFFF/png?text=CM" },
+        { "id": "2", "name": "Cale Makar", "year": 2, "imageUrl": "https://placehold.co/120x120/22C55E/FFFFFF/png?text=CM" },
+        { "id": "3", "name": "Cale Makar", "year": 2, "imageUrl": "https://placehold.co/120x120/22C55E/FFFFFF/png?text=CM" },
+        { "id": "4", "name": "Cale Makar", "year": 2, "imageUrl": "https://placehold.co/120x120/22C55E/FFFFFF/png?text=CM" }
+      ]
+    },
+    {
+      "id": "2",
+      "name": "Oh Henry, That's what she said",
+      "gm": "GM: Henry",
+      "type": "henry",
+      "players": [
+        { "id": "5", "name": "Cale Makar", "year": 2, "imageUrl": "https://placehold.co/120x120/3B82F6/FFFFFF/png?text=CM" },
+        { "id": "6", "name": "Cale Makar", "year": 2, "imageUrl": "https://placehold.co/120x120/3B82F6/FFFFFF/png?text=CM" },
+        { "id": "7", "name": "Cale Makar", "year": 2, "imageUrl": "https://placehold.co/120x120/3B82F6/FFFFFF/png?text=CM" },
+        { "id": "8", "name": "Cale Makar", "year": 2, "imageUrl": "https://placehold.co/120x120/3B82F6/FFFFFF/png?text=CM" }
+      ]
+    },
+    {
+      "id": "3",
+      "name": "The Bears 2",
+      "gm": "GM: Alberto",
+      "type": "bears",
+      "players": [
+        { "id": "9", "name": "Cale Makar", "year": 2, "imageUrl": "https://placehold.co/120x120/22C55E/FFFFFF/png?text=CM" },
+        { "id": "10", "name": "Cale Makar", "year": 2, "imageUrl": "https://placehold.co/120x120/22C55E/FFFFFF/png?text=CM" },
+        { "id": "11", "name": "Cale Makar", "year": 2, "imageUrl": "https://placehold.co/120x120/22C55E/FFFFFF/png?text=CM" },
+        { "id": "12", "name": "Cale Makar", "year": 2, "imageUrl": "https://placehold.co/120x120/22C55E/FFFFFF/png?text=CM" }
+      ]
+    },
+    {
+      "id": "4",
+      "name": "Henry's Heroes",
+      "gm": "GM: Henry",
+      "type": "henry",
+      "players": [
+        { "id": "13", "name": "Cale Makar", "year": 2, "imageUrl": "https://placehold.co/120x120/3B82F6/FFFFFF/png?text=CM" },
+        { "id": "14", "name": "Cale Makar", "year": 2, "imageUrl": "https://placehold.co/120x120/3B82F6/FFFFFF/png?text=CM" },
+        { "id": "15", "name": "Cale Makar", "year": 2, "imageUrl": "https://placehold.co/120x120/3B82F6/FFFFFF/png?text=CM" },
+        { "id": "16", "name": "Cale Makar", "year": 2, "imageUrl": "https://placehold.co/120x120/3B82F6/FFFFFF/png?text=CM" }
+      ]
+    }
+  ]
+} 
