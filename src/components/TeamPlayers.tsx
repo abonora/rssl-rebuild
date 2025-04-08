@@ -67,8 +67,11 @@ export const TeamPlayers = ({ teamId }: TeamPlayersProps) => {
     <div className="team-details container">
       <div className="team-details-content">
         <div className="team-header">
-          <h1>{team.name}</h1>
-          <p className="gm-title">Owner: {team.owner}</p>
+          <div className='team-info'>
+            <h1>{team.name}</h1>
+            <p className="gm-title">Owner: {team.owner}</p>
+          </div>
+          
           <img src={team.logoUrl} alt={`${team.name} Logo`} className="team-logo-small" />
         </div>
         

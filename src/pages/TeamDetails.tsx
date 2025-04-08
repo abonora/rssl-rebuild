@@ -70,6 +70,9 @@ export function TeamDetails({ teamId, onBackClick }: TeamDetailsProps) {
   return (
     <div className="team-details container">
       <div className="team-details-content">
+      <button className="all-teams-button" onClick={onBackClick}>
+          Back to Teams
+        </button>
         <div className="team-header">
           <h1>{team.title.rendered}</h1>
           <p className="gm-title">GM: {team.meta_box.owner}</p>
@@ -109,9 +112,7 @@ export function TeamDetails({ teamId, onBackClick }: TeamDetailsProps) {
           ))}
         </div>
 
-        <button className="all-teams-button" onClick={onBackClick}>
-          Back to Teams
-        </button>
+        
       </div>
     </div>
   );

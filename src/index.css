@@ -380,11 +380,11 @@ body {
 .team-card {
   background: #f8fafc;
   border-radius: 8px;
-  padding: 20px;
+  padding: 15px;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
-  gap: 12px;
+  gap: 20px;
   cursor: pointer;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -405,7 +405,7 @@ body {
 }
 
 .team-info {
-  text-align: center;
+  text-align: left;
 }
 
 .team-name {
@@ -663,10 +663,15 @@ body {
 }
 
 .team-logo-small {
-  width: 20px;
-  height: 20px;
+  width: 100px;
+  height: 100px;
   object-fit: contain;
+  border-radius: 10px;
+  background-color: white;
+  padding: 0.75rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
+
 
 [data-theme='dark'] .player-card {
   background-color: #1e293b;
@@ -750,12 +755,30 @@ body {
 
 .team-header {
   text-align: center;
+  /* display: flex;
+  flex-direction: row-reverse;
+  align-items: center;
+  justify-content: center;
+  gap: 20px; */
+}
+
+.container:has(.home-header) .team-header {
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+}
+
+.container:has(.home-header) .player-cards {
+  margin-top: 0;
 }
 
 .team-header h1 {
   font-size: 2.5rem;
   color: var(--text-color);
   margin-bottom: 0.5rem;
+  line-height: normal;
 }
 
 .gm-title {
@@ -787,6 +810,7 @@ body {
   gap: 2rem;
   width: 100%;
   max-width: 800px;
+  display: none;
 }
 
 .stat-item {
@@ -1539,15 +1563,24 @@ body {
 }
 
 .team-logo {
-  width: 32px;
-  height: 32px;
+  width: 75px;
+  height: 75px;
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 50%;
+  border-radius: 10px;
   background-color: var(--primary-color);
-  margin: 0 0.75rem;
   overflow: hidden;
+  background-color: white;
+  padding: 0.5rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
+}
+
+.rank-cell .team-logo {
+  width: 32px;
+  height: 32px;
+  background: none;
+  padding: 0;
 }
 
 .team-logo img {
@@ -1565,7 +1598,8 @@ body {
 }
 
 .player-card {
-  background-color: var(--background-color);
+  /* background-color: var(--background-color); */
+  background-color: #f8fafc;
   border: 1px solid var(--border-color);
   border-radius: 12px;
   padding: 1rem;
