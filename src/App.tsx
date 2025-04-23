@@ -98,17 +98,7 @@ function Layout() {
                 <h1 className="page-title">
                   {homeLoading ? 'Loading...' : homeError ? 'Error' : homeContent?.title.rendered || 'Welcome to Hockey Stats'}
                 </h1>
-                {selectedTeam && (
-                  <div className="team-actions">
-                    <span className="team-actions-hint">Edit or clear your team selection</span>
-                    <button className="icon-button" onClick={() => setShowTeamSelection(true)} title="Edit Team Selection">
-                      <FaPencilAlt />
-                    </button>
-                    <button className="icon-button danger" onClick={handleClearTeam} title="Remove Team">
-                      <FaTrash />
-                    </button>
-                  </div>
-                )}
+                
               </div>
               {homeContent  && (
                 <div 
@@ -121,6 +111,17 @@ function Layout() {
                   Select Team
                 </button>
               )}
+              {selectedTeam && (
+                  <div className="team-actions">
+                    <span className="team-actions-hint">Edit or clear your team selection</span>
+                    <button className="icon-button" onClick={() => setShowTeamSelection(true)} title="Edit Team Selection">
+                      <FaPencilAlt />
+                    </button>
+                    <button className="icon-button danger" onClick={handleClearTeam} title="Remove Team">
+                      <FaTrash />
+                    </button>
+                  </div>
+                )}
               {selectedTeam && <TeamPlayers teamId={selectedTeam} />}
             </div>
           );

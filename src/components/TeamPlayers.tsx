@@ -68,7 +68,7 @@ export const TeamPlayers = ({ teamId }: TeamPlayersProps) => {
       <div className="team-details-content">
         <div className="team-header">
           <div className='team-info'>
-            <h1>{team.name}</h1>
+            <h1 dangerouslySetInnerHTML={{__html: team.name}}></h1>
             <p className="gm-title">Owner: {team.owner}</p>
           </div>
           

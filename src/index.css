@@ -123,8 +123,8 @@ body {
 }
 
 .page-title {
-  font-size: 2rem;
-  font-weight: 600;
+  font-size: 2.5rem;
+  font-weight: 700;
   margin-bottom: 1.5rem;
   color: var(--primary-color);
 }
@@ -745,6 +745,7 @@ body {
   width: 100%;
   max-width: 1200px;
   margin: 0 auto;
+  transition: background-color 0.3s ease;
 }
 
 .team-details-content {
@@ -913,7 +914,7 @@ body {
   color: var(--text-color);
   cursor: pointer;
   font-size: 0.9rem;
-  transition: all 0.2s ease;
+  transition: all 0.3s ease;
 }
 
 .season-button:hover {
@@ -1023,6 +1024,7 @@ body {
   position: relative;
   width: 100%;
   overflow: hidden;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 
 .standings-table-content {
@@ -1041,6 +1043,7 @@ body {
   position: sticky;
   top: 0;
   z-index: 1;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 
 .standings-row {
@@ -1052,6 +1055,7 @@ body {
   font-size: 0.9rem;
   color: var(--text-color);
   background-color: var(--background-color);
+  transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 
 .standings-row:nth-child(even) {
@@ -1072,6 +1076,7 @@ body {
   padding-right: 1rem;
   border-right: 1px solid var(--border-color);
   background-color: inherit;
+  transition:border-color 0.3s ease;
 }
 
 .stat-cell {
@@ -1129,9 +1134,9 @@ body {
   }
 }
 
-[data-theme='dark'] .rank {
+/* [data-theme='dark'] .rank {
   background: #1e293b;
-}
+} */
 
 [data-theme='dark'] .season-selector {
   background: var(--background-color);
@@ -1196,6 +1201,7 @@ body {
   border-radius: 12px;
   padding: 1rem;
   min-width: 200px;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 
 .team {
@@ -1212,6 +1218,7 @@ body {
 .team.winner {
   background-color: rgba(0, 102, 179, 0.1);
   border-radius: 6px;
+  transition: background-color 0.3s ease;
 }
 
 .team.loser {
@@ -1454,14 +1461,15 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 1.5rem;
   flex-direction: column;
 }
 
 .team-actions {
   display: flex;
+  justify-content: center;
   align-items: center;
   gap: 1rem;
+  padding-top: 2rem;
 }
 
 .team-actions-hint {
@@ -1496,18 +1504,13 @@ body {
 @media (max-width: 768px) {
   .home-header {
     flex-direction: column;
-    align-items: flex-start;
     gap: 1rem;
   }
 
   .team-actions {
     width: 100%;
-    justify-content: flex-end;
   }
 
-  .team-actions-hint {
-    display: none;
-  }
 }
 
 .legal-footer {
@@ -1515,6 +1518,7 @@ body {
   padding: 1.5rem 0;
   border-top: 1px solid var(--border-color);
   background-color: var(--background-color);
+  transition: background-color 0.3s ease, border-color 0.3s ease;
   position: sticky;
   bottom: 0;
   left: 0;
@@ -1527,7 +1531,7 @@ body {
   margin: 0 auto;
   padding: 0 2rem;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   font-size: 0.875rem;
   color: var(--text-color);
@@ -1687,4 +1691,13 @@ body {
   .player-name {
     font-size: 1rem;
   }
+}
+
+hr {
+  width: 75%;
+  margin: 2rem auto;
+}
+
+.page-content h3 {
+  margin-bottom: 0.5rem;
 }

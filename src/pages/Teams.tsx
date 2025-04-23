@@ -77,7 +77,7 @@ export const Teams = () => {
           >
             <img src={team.logoUrl} alt={`${team.name} Logo`} className="team-logo" />
             <div className="team-info">
-              <div className="team-name">{team.name}</div>
+              <div className="team-name" dangerouslySetInnerHTML={{__html: team.name}}></div>
               <div className="gm-name">{team.owner}</div>
             </div>
           </div>

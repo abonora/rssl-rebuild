@@ -27,6 +27,10 @@ self.addEventListener('fetch', event => {
             if (!response || response.status !== 200 || response.type !== 'basic') {
               return response;
             }
+             // Skip if the request is a chrome-extension request
+            if (event.request.url.startsWith('chrome-extension://')) {
+              return response;
+            }
             const responseToCache = response.clone();
             caches.open(CACHE_NAME)
               .then(cache => {

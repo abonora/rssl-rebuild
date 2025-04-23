@@ -72,7 +72,7 @@ export const TeamSelection = ({ onSelectTeam, onCancel }: TeamSelectionProps) =>
           >
             <img src={team.meta_box.teamLogo[0]?.full_url} alt={`${team.title.rendered} Logo`} className="team-logo" />
             <div className="team-info">
-              <div className="team-name">{team.title.rendered}</div>
+              <div className="team-name" dangerouslySetInnerHTML={{__html: team.title.rendered}}></div>
               <div className="gm-name">{team.meta_box.owner}</div>
             </div>
           </div>

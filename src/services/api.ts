@@ -9,6 +9,7 @@ interface CachedData {
 }
 
 export interface TeamResponse {
+  slug: any;
   id: number;
   title: {
     rendered: string;
@@ -81,7 +82,7 @@ export const fetchStandingsData = async (): Promise<StandingsResponse[]> => {
       timestamp: Date.now()
     };
     localStorage.setItem(STANDINGS_CACHE_KEY, JSON.stringify(cacheData));
-    
+    localStorage.setItem('currentSeason', data[0].meta_box.year);
     return data;
   } catch (error) {
     // If we have cached data, return it as fallback even if expired

@@ -6,12 +6,14 @@ import stanleyCup from './../assets/stanleycup.png';
 
 interface TeamLogo {
   name: string;
+  slug: string;
   logoUrl: string;
 }
 
 export const Standings = () => {
   const [view, setView] = useState<'standings' | 'playoffs'>('standings');
-  const [selectedSeason, setSelectedSeason] = useState('2023/2024');
+  //const currentSeason =  localStorage.getItem('currentSeason');
+  const [selectedSeason, setSelectedSeason] = useState('2024/2025');
   const [isSeasonDropdownOpen, setIsSeasonDropdownOpen] = useState(false);
   const [seasons, setSeasons] = useState<StandingsResponse[]>([]);
   const [teamLogos, setTeamLogos] = useState<TeamLogo[]>([]);
@@ -28,6 +30,7 @@ export const Standings = () => {
 
         const logos = teamsData.map(team => ({
           name: team.title.rendered,
+          slug: team.slug,
           logoUrl: team.meta_box.teamLogo[0]?.full_url || ''
         }));
 
@@ -44,7 +47,7 @@ export const Standings = () => {
   }, []);
 
   const getTeamLogo = (teamName: string) => {
-    return teamLogos.find(team => team.name === teamName)?.logoUrl;
+    return teamLogos.find(team => team.name.replace(/&#8217;/g, '').replace(/'/g, '').replace(/ /g, '-').toLowerCase() === teamName.replace(/'/g, '').replace(/ /g, '-').toLowerCase())?.logoUrl;
   };
 
   const currentSeasonData = seasons.find(season => season.meta_box.year === selectedSeason);

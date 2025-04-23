@@ -74,7 +74,7 @@ export function TeamDetails({ teamId, onBackClick }: TeamDetailsProps) {
           Back to Teams
         </button>
         <div className="team-header">
-          <h1>{team.title.rendered}</h1>
+          <h1 dangerouslySetInnerHTML={{__html: team.title.rendered}}></h1>
           <p className="gm-title">GM: {team.meta_box.owner}</p>
         </div>
         
