@@ -23,6 +23,7 @@ export const Teams = () => {
           id: team.id,
           name: team.title.rendered,
           owner: team.meta_box.owner,
+          slug: team.slug,
           logoUrl: team.meta_box.teamLogo[0]?.full_url || ''
         }));
         setTeams(formattedTeams);
@@ -73,6 +74,8 @@ export const Teams = () => {
           <div 
             key={team.id} 
             className="team-card"
+            data-gtm-location='teams-page'
+            data-gtm-label={`team-${team.slug}`}
             onClick={() => handleTeamClick(team.id.toString())}
           >
             <img src={team.logoUrl} alt={`${team.name} Logo`} className="team-logo" />

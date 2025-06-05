@@ -190,6 +190,8 @@ export const Standings = () => {
           <div className="season-selector">
             <button 
               className="season-button" 
+              data-gtm-location='standings'
+              data-gtm-label={isSeasonDropdownOpen ? 'season-dropdown-open' : 'season-dropdown-collapsed'}
               onClick={() => setIsSeasonDropdownOpen(!isSeasonDropdownOpen)}
             >
               {selectedSeason} ▼
@@ -200,6 +202,8 @@ export const Standings = () => {
                   <div
                     key={season.id}
                     className={`season-option ${season.meta_box.year === selectedSeason ? 'selected' : ''}`}
+                    data-gtm-location='standings'
+                    data-gtm-label={`season-${season.meta_box.year}`}
                     onClick={() => handleSeasonSelect(season.meta_box.year)}
                   >
                     {season.meta_box.year}
@@ -211,6 +215,8 @@ export const Standings = () => {
           <button 
             className="view-toggle-button"
             onClick={handleViewToggle}
+            data-gtm-location='standings'
+            data-gtm-label={view === 'standings' ? 'view-standings' : 'view-playoffs'}
           >
             {view === 'standings' ? 'View Playoffs' : 'View Standings'}
           </button>

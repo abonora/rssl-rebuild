@@ -69,6 +69,8 @@ export const TeamSelection = ({ onSelectTeam, onCancel }: TeamSelectionProps) =>
             key={team.id}
             className={`team-card ${selectedTeamId === team.id.toString() ? 'selected' : ''}`}
             onClick={() => handleTeamClick(team.id)}
+            data-gtm-location='home'
+            data-gtm-label={`team-${team.slug}`}
           >
             <img src={team.meta_box.teamLogo[0]?.full_url} alt={`${team.title.rendered} Logo`} className="team-logo" />
             <div className="team-info">
@@ -83,10 +85,12 @@ export const TeamSelection = ({ onSelectTeam, onCancel }: TeamSelectionProps) =>
           className="btn btn-primary"
           onClick={handleSelectClick}
           disabled={!selectedTeamId}
+          data-gtm-location='home'
+          data-gtm-label="confirm-selected-team"
         >
           Select
         </button>
-        <button className="btn btn-secondary" onClick={onCancel}>
+        <button className="btn btn-secondary" data-gtm-location='home' data-gtm-label="cancel-selected-team" onClick={onCancel}>
           Cancel
         </button>
       </div>

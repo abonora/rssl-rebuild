@@ -60,7 +60,8 @@ export function TeamDetails({ teamId, onBackClick }: TeamDetailsProps) {
     return (
       <div className="team-details container">
         <div className="error">{error || 'Team not found'}</div>
-        <button className="all-teams-button" onClick={onBackClick}>
+        <button className="all-teams-button"  data-gtm-location='teams-page'
+            data-gtm-label="back-to-teams" onClick={onBackClick}>
           Back to Teams
         </button>
       </div>
@@ -70,7 +71,8 @@ export function TeamDetails({ teamId, onBackClick }: TeamDetailsProps) {
   return (
     <div className="team-details container">
       <div className="team-details-content">
-      <button className="all-teams-button" onClick={onBackClick}>
+      <button className="all-teams-button" data-gtm-location='teams-page'
+            data-gtm-label="back-to-teams" onClick={onBackClick}>
           Back to Teams
         </button>
         <div className="team-header">

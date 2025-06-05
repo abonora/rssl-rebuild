@@ -1,4 +1,4 @@
-import { useState, useEffect, use } from 'react';
+import { useState, useEffect } from 'react';
 import { FaHome, FaUsers, FaTrophy, FaPencilAlt, FaTrash } from 'react-icons/fa';
 import { FiSun, FiMoon } from 'react-icons/fi';
 import { ThemeProvider, useTheme } from './context/ThemeContext';
@@ -14,6 +14,50 @@ import './App.css';
 
 type Page = 'home' | 'teams' | 'standings';
 
+function useGtmClickTracking() {
+  useEffect(() => {
+    function handleClickTracking(event: MouseEvent) {
+      let target = event.target as HTMLElement | null;
+    
+      // Traverse up from SVGs or non-HTMLElement targets
+      while (target && !(target instanceof HTMLElement)) {
+        target = target.parentElement;
+      }
+    
+      // Try to find the nearest clickable or tagged element
+      const clickableParent = target?.closest('[data-gtm-label], button, a, [role="button"]') as HTMLElement | null;
+    
+      // Exit if no valid target
+      if (!clickableParent) return;
+    
+      // Safe to access attributes now
+      const label =
+        clickableParent.getAttribute('data-gtm-label') ||
+        clickableParent.textContent?.trim().slice(0, 100) ||
+        'unknown_click';
+    
+      const location =
+        clickableParent.getAttribute('data-gtm-location') ||
+        getNearestLocation(clickableParent) ||
+        'body';
+    
+      window.dataLayer?.push({
+        event: 'click',
+        label,
+        location,
+        tag: clickableParent.tagName,
+      });
+    }
+    
+
+    document.addEventListener('click', handleClickTracking);
+
+    return () => {
+      document.removeEventListener('click', handleClickTracking);
+    };
+  }, []);
+}
+
 function Layout() {
   const { theme, toggleTheme } = useTheme();
   const [showTeamSelection, setShowTeamSelection] = useState(false);
@@ -25,6 +69,8 @@ function Layout() {
   const [homeContent, setHomeContent] = useState<HomeContent | null>(null);
   const [homeLoading, setHomeLoaading] = useState(true);
   const [homeError, setHomeError] = useState<string | null>(null);
+
+  useGtmClickTracking();
 
   useEffect(() => {
     const loadHomeContent = async () => {
@@ -107,17 +153,17 @@ function Layout() {
                   />
               )}
               {!selectedTeam && (
-                <button className="select-team-button" onClick={() => setShowTeamSelection(true)}>
+                <button className="select-team-button" data-gtm-location='home' data-gtm-label="select-team" onClick={() => setShowTeamSelection(true)}>
                   Select Team
                 </button>
               )}
               {selectedTeam && (
                   <div className="team-actions">
                     <span className="team-actions-hint">Edit or clear your team selection</span>
-                    <button className="icon-button" onClick={() => setShowTeamSelection(true)} title="Edit Team Selection">
+                    <button className="icon-button" data-gtm-location='home' data-gtm-label="edit-selected-team" onClick={() => setShowTeamSelection(true)} title="Edit Team Selection">
                       <FaPencilAlt />
                     </button>
-                    <button className="icon-button danger" onClick={handleClearTeam} title="Remove Team">
+                    <button className="icon-button danger" data-gtm-location='home' data-gtm-label="clear-selected-team" onClick={handleClearTeam} title="Remove Team">
                       <FaTrash />
                     </button>
                   </div>
@@ -150,18 +196,24 @@ function Layout() {
           <div
             className={`nav-item ${currentPage === 'home' ? 'active' : ''}`}
             onClick={() => handlePageChange('home')}
+            data-gtm-label='home'
+            data-gtm-location='nav'
           >
             <FaHome />
           </div>
           <div
             className={`nav-item ${currentPage === 'teams' ? 'active' : ''}`}
             onClick={() => handlePageChange('teams')}
+            data-gtm-label="teams"
+            data-gtm-location='nav'
           >
             <FaUsers />
           </div>
           <div
             className={`nav-item ${currentPage === 'standings' ? 'active' : ''}`}
             onClick={() => handlePageChange('standings')}
+            data-gtm-label="standings"
+            data-gtm-location='nav'
           >
             <FaTrophy />
           </div>
@@ -170,6 +222,8 @@ function Layout() {
           className="theme-toggle"
           data-theme={theme}
           onClick={toggleTheme}
+          data-gtm-location='nav'
+          data-gtm-label='theme'
           aria-label={`Switch to ${theme === 'light' ? 'dark' : 'light'} mode`}
         >
           <FiSun className="icon" />
