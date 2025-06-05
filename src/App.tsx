@@ -14,15 +14,25 @@ import './App.css';
 
 type Page = 'home' | 'teams' | 'standings';
 
+function getNearestLocation(_el: HTMLElement): string {
+  // your logic here
+  return 'nav'; // or 'body', etc.
+}
+
 function useGtmClickTracking() {
   useEffect(() => {
     function handleClickTracking(event: MouseEvent) {
       let target = event.target as HTMLElement | null;
-    
-      // Traverse up from SVGs or non-HTMLElement targets
-      while (target && !(target instanceof HTMLElement)) {
-        target = target.parentElement;
+
+    // Traverse up from SVGs or non-HTMLElement targets
+    while (target && !(target instanceof HTMLElement)) {
+      if ('parentElement' in target) {
+        target = (target as HTMLElement).parentElement;
+      } else {
+        target = null; // break the loop safely if no parentElement
       }
+    }
+
     
       // Try to find the nearest clickable or tagged element
       const clickableParent = target?.closest('[data-gtm-label], button, a, [role="button"]') as HTMLElement | null;
@@ -88,6 +98,11 @@ function Layout() {
     if (currentPage === 'home') {
       loadHomeContent();
     }
+
+    window.dataLayer?.push({
+      event: 'page_view',
+      page: currentPage, // Or build a URL-like string if needed
+    });
   }, [currentPage]);
 
   useEffect(() => {

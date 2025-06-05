@@ -6,6 +6,7 @@ interface Team {
   id: number;
   name: string;
   owner: string;
+  slug: string,
   logoUrl: string;
 }
 
